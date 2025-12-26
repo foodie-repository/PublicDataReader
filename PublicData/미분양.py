@@ -204,6 +204,9 @@ def create_final_pivot_table(df, filename=None):
             '수치값': '미분양수'
         })
 
+        # '계' (합계) 행 제외 - 시군구별 세부 데이터만 유지
+        df_final = df_final[df_final['시군구'] != '계'].copy()
+
         # 파일명 생성
         if filename is None:
             filename = "미분양현황_피벗_전체기간_최종.csv"
