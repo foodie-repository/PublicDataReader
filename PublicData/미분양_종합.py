@@ -47,8 +47,11 @@ def merge_unsold_data():
     # 5. 준공 후 미분양이 없는 경우 0으로 채우기
     df_merged['준공_후_미분양수'] = df_merged['준공_후_미분양수'].fillna(0).astype(int)
 
-    # 6. 컬럼 순서 정리
-    df_merged = df_merged[['시점', '시도', '시군구', '미분양수', '준공_후_미분양수']]
+    # 6. 준공 전 미분양수 계산 (미분양수 - 준공_후_미분양수)
+    df_merged['준공_전_미분양수'] = df_merged['미분양수'] - df_merged['준공_후_미분양수']
+
+    # 7. 컬럼 순서 정리
+    df_merged = df_merged[['시점', '시도', '시군구', '미분양수', '준공_후_미분양수', '준공_전_미분양수']]
 
     print(f"   - 통합 데이터: {len(df_merged):,}건")
     print(f"   - 기간: {df_merged['시점'].min()} ~ {df_merged['시점'].max()}")
@@ -83,6 +86,7 @@ def save_merged_data(df, filename='미분양_종합.csv'):
         df.to_csv(filename, index=False, encoding='utf-8-sig')
         print(f"\n통합 데이터가 '{filename}' 파일로 저장되었습니다.")
         print(f"파일 크기: {len(df):,}행 × {len(df.columns)}열")
+        print(f"컬럼: {', '.join(df.columns.tolist())}")
     except Exception as e:
         print(f"\n파일 저장 중 오류 발생: {str(e)}")
 
