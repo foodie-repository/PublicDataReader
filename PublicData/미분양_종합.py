@@ -22,13 +22,13 @@ def merge_unsold_data():
 
     # 1. 미분양 데이터 로드
     print("\n1. 미분양 데이터 로드 중...")
-    df_unsold = pd.read_csv('미분양현황_피벗_전체기간_최종.csv', encoding='utf-8-sig')
+    df_unsold = pd.read_csv('미분양현황_피벗_전체기간_최종.csv', encoding='utf-8-sig', dtype={'시점': str})
     print(f"   - 미분양 데이터: {len(df_unsold):,}건")
     print(f"   - 기간: {df_unsold['시점'].min()} ~ {df_unsold['시점'].max()}")
 
     # 2. 준공 후 미분양 데이터 로드
     print("\n2. 준공 후 미분양 데이터 로드 중...")
-    df_completed = pd.read_csv('준공_후_미분양_피벗_전체기간_최종.csv', encoding='utf-8-sig')
+    df_completed = pd.read_csv('준공_후_미분양_피벗_전체기간_최종.csv', encoding='utf-8-sig', dtype={'시점': str})
     print(f"   - 준공 후 미분양 데이터: {len(df_completed):,}건")
     print(f"   - 기간: {df_completed['시점'].min()} ~ {df_completed['시점'].max()}")
 

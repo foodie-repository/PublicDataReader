@@ -177,8 +177,8 @@ def create_final_pivot_table(df, filename=None):
         # 데이터 복사
         df_work = df.copy()
 
-        # 시점 포맷 변경 (202510 -> 2025.10)
-        df_work['시점'] = df_work['수록시점'].apply(lambda x: f"{str(x)[:4]}.{str(x)[4:]}")
+        # 시점 포맷 변경 (202510 -> 2025.10, 월은 항상 2자리로)
+        df_work['시점'] = df_work['수록시점'].apply(lambda x: f"{str(x)[:4]}.{str(x)[4:].zfill(2)}")
 
         # 시도명을 정식 명칭으로 변경
         sido_mapping = {
